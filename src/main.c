@@ -12,13 +12,13 @@ void init()
     // Enable the clock for Port A
     enable_clock(GPIOAEN);
 
-    // Clear and Set LED PIN MODE
+    // Set LED pin, MODER, to Output Mode
     set_gpio_mode(GPIOA_REGS, LED_PIN, GPIOMODE_OUTPUT);
 
-    // Clear BTN PIN MODE - no need to set since this is meant to be input
+    // Set Button Pin, MODER, to Input Mode
     set_gpio_mode(GPIOA_REGS, BTN_PIN, GPIOMODE_INPUT);
 
-    // Clear and Set PUPDR 
+    // Set Button Pin, PUPDR, to Pull-Up Resistor
     set_pupd_mode(GPIOA_REGS, BTN_PIN, PULL_UP);
 
     // Set LED to off by default
