@@ -1,5 +1,13 @@
 # Change Log
 
+# v0.1.2
+- Added Lightweight `printf` like function. Could handle basic formatting like `%d` and `%s`. Avoids building with C-Lib.
+- Added I2C driver.
+- Added UART driver.
+- Removed example button/LED code from main and README file.
+- Updated `main.c` logic to bring up MPU sensor and print its ID to the PC console via USART using new `logger.c` `prints` function.
+- Renamed `driver` to `gpio_driver` and separated driver logic and structs to individual files `i2c_driver`, `gpio_driver`, `usart_driver`.
+
 # v0.1.1
 - Updated RCC reg access to not be hardcoded and instead to use a `C struct` with its members as `uint32` since that is the memory layout.
 - Clarified `ODR` functions by postfixing `_by_odr`.

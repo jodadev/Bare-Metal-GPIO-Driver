@@ -77,7 +77,6 @@ Reset_Handler:
   b   6f
 5:
   str r2, [r0], #4
-  adds r0, r0, #4
   b   4b
 6:
   bl  main

@@ -18,8 +18,15 @@
 //* Base Addresses
 #define PERIPH_BASE         0x40000000UL
 #define AHB1_BASE           (PERIPH_BASE + 0x00020000UL)
+#define APB1_BASE           (PERIPH_BASE + 0x00000000UL)
 #define RCC_BASE            (AHB1_BASE   + 0x00003800UL)
 #define GPIOA_BASE          (AHB1_BASE   + 0x00000000UL)
+#define GPIOB_BASE          (AHB1_BASE   + 0x00000400UL)
+#define USART2_BASE         (APB1_BASE   + 0x00004400UL)
+#define I2C1_BASE           (APB1_BASE   + 0x00005400UL)
+
+#define SYS_FREQ            16000000
+#define APB1_CLK            (SYS_FREQ)
 
 //* RCC clock bits
 #define GPIOAEN             0x00U
@@ -30,20 +37,9 @@
 #define GPIOFEN             0x05U
 #define GPIOGEN             0x06U
 #define GPIOHEN             0x07U
-
-//* GPIO Register Layout
-typedef struct
-{
-    volatile uint32_t MODER;
-    volatile uint32_t OTYPER;
-    volatile uint32_t OSPEEDR;
-    volatile uint32_t PUPDR;
-    volatile uint32_t IDR;
-    volatile uint32_t ODR;
-    volatile uint32_t BSRR;
-    volatile uint32_t LCKR;
-    volatile uint32_t AFR[2];
-} GPIORegisters;
+#define I2C1EN              0x15U // 0001 0101
+#define I2C2EN              0x16U
+#define I2C3EN              0x17U
 
 //* RCC Register Layout
 typedef struct
@@ -83,24 +79,6 @@ typedef struct
     volatile uint32_t CKGATENR;
     volatile uint32_t DCKCFGR2;
 } RCCRegisters;
-
-typedef enum
-{
-    GPIOMODE_INPUT              = 0x0U,
-    GPIOMODE_OUTPUT             = 0x1U,
-    GPIOMODE_ALTERNATE_FUNCTION = 0x2U,
-    GPIOMODE_ANALOG             = 0x3U
-} GPIOMode;
-
-typedef enum
-{
-    NONE        = 0x0U,
-    PULL_UP     = 0x1U,
-    PULL_DOWN   = 0x2U
-} PUPDMode;
-
-//* Peripheral instances
-#define GPIOA_REGS          ((GPIORegisters*) GPIOA_BASE)
 
 //* RCC instances
 #define RCC_REGS            ((RCCRegisters*) RCC_BASE)

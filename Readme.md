@@ -15,6 +15,7 @@ The goal is to showcase an understanding of memory-mapped I/O, bit manipulation,
 - Non-atomic pin writes using `ODR`
 - GPIO input reading as both numeric and boolean values
 - Clear separation between hardware definitions, driver code, and application logic
+- USART to PC for logging.
 
 ---
 
@@ -32,10 +33,17 @@ The goal is to showcase an understanding of memory-mapped I/O, bit manipulation,
 ## Project Structure
 
 ```text
-├── hardware.h   # Base addresses, RCC register, GPIO register layout, peripheral instances
-├── driver.h     # Driver API declarations, enums, helper macros
-├── driver.c     # Driver implementation
-└── main.c       # Application logic example
+├── hardware.h     # Base addresses, RCC register, GPIO register layout, peripheral instances
+├── gpio_driver.h  # GPIO Driver API declarations, enums
+├── gpio_driver.c  # GPIO Driver implementation
+├── usart_driver.h # USART Driver API declarations, enums
+├── usart_driver.c # USART Driver implementation
+├── i2c_driver.h   # I2C Driver API declarations, enums
+├── i2c_driver.c   # I2C Driver implementation
+├── global.h       # Global macros
+├── logging.h      # Logging via USART
+├── logging.c      # Logging via USART
+└── main.c         # Application logic example
 ```
 
 ## Example Usage
@@ -63,6 +71,7 @@ int main()
 
 - Press and hold the button to turn the LED on
 - Release the button to turn the LED off
+- Set PC monitor baud rate to 9600 to display log
 
 **Note:** The button is configured as active-low using an internal pull-up resistor.
 
@@ -110,7 +119,7 @@ This project is intended as a portfolio piece to demonstrate low-level embedded 
 
 ## Contact
 
-Edwin Martinez <br/>
-**Software Engineer | Embedded Systems** <br/>
-GitHub: https://github.com/jodadev  
-LinkedIn: https://linkedin.com/in/jodadev
+Edwin J Martinez <br/>
+**Software/Firmware Engineer | Embedded Systems** <br/>
+[GitHub](https://github.com/jodadev ) 
+[LinkedIn](https://linkedin.com/in/jodadev)

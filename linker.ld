@@ -28,28 +28,42 @@ SECTIONS
     . = ALIGN(4);
     *(.text*)
     *(.rodata*)
+
+    KEEP(*(.init))
+    KEEP(*(.fini))
+
+    *(.glue_7)
+    *(.glue_7t)
+    *(.eh_frame)
+    *(.ARM.extab* .gnu.linkonce.armextab.*)
+    *(.ARM.exidx* .gnu.linkonce.armexidx.*)
+
     . = ALIGN(4);
-    _etext = .; 
+    _etext = .;
   } > FLASH
 
   _sidata = LOADADDR(.data);
 
-  .data : AT(_etext)
+  .data :
   {
     . = ALIGN(4);
-    _sdata = .;   
+    _sdata = .;
     *(.data*)
     . = ALIGN(4);
-    _edata = .;   
-  } > RAM
+    _edata = .;
+  } > RAM AT > FLASH
 
   .bss :
   {
     . = ALIGN(4);
-    _sbss = .;    
+    _sbss = .;
     *(.bss*)
-    *(COMMON)    
+    *(COMMON)
     . = ALIGN(4);
-    _ebss = .;    
+    _ebss = .;
   } > RAM
+
+  . = ALIGN(4);
+  end = .;
+  _end = .;
 }

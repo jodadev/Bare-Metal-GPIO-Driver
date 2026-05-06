@@ -16,14 +16,50 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include "hardware.h"
+#include "global.h"
 
-//* Helpers
-#define BIT(p)              (0x01UL << (p))
-#define SHIFT_BY_TWO(p)     ((p) * 0x02U)
-#define TWO_BIT_WIDTH       0x3UL
+//* GPIO Register Layout
+typedef struct
+{
+    volatile uint32_t MODER;
+    volatile uint32_t OTYPER;
+    volatile uint32_t OSPEEDR;
+    volatile uint32_t PUPDR;
+    volatile uint32_t IDR;
+    volatile uint32_t ODR;
+    volatile uint32_t BSRR;
+    volatile uint32_t LCKR;
+    volatile uint32_t AFR[2];
+} GPIORegisters;
 
+typedef enum
+{
+    GPIOMODE_INPUT              = 0x0U,
+    GPIOMODE_OUTPUT             = 0x1U,
+    GPIOMODE_ALTERNATE_FUNCTION = 0x2U,
+    GPIOMODE_ANALOG             = 0x3U
+} GPIOMode;
 
+typedef enum
+{
+    NONE        = 0x0U,
+    PULL_UP     = 0x1U,
+    PULL_DOWN   = 0x2U
+} PUPDMode;
+
+typedef enum
+{
+    PUSH_PULL = 0U,
+    OPEN_DRAIN
+} OutputType;
+
+typedef enum
+{
+    LOW_SPEED = 0U,
+    MEDIUM_SPEED,
+    HIGH_SPEED,
+    FAST_SPEED
+} OutputSpeed;
 
 typedef struct 
 {
@@ -31,6 +67,10 @@ typedef struct
     uint32_t pin;
     bool isActiveLow;
 } Button;
+
+//* Peripheral instances
+#define GPIOA_REGS          ((GPIORegisters*) GPIOA_BASE)
+#define GPIOB_REGS          ((GPIORegisters*) GPIOB_BASE)
 
 
 /**
